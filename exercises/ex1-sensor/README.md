@@ -76,6 +76,7 @@ d 1.93725
 
 ```
 2. Object Mapper
+> Because in OpenBMC, the service name (with a hash value) of Hwmon is dynamically generated. We cannot hardcode the service name; we must first use the ObjectMapper to query who owns the object `/xyz/openbmc_project/sensors/voltage/vbat`, and then dynamically call `get-property`.
 ```
 root@romulus:~# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetObject sas "/xyz/openbmc_project/sensors/voltage/vbat" 0
 
