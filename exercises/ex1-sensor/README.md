@@ -45,7 +45,7 @@ Mar 01 06:26:56 romulus systemd[1]: Stopped Phosphor Hwmon Poller.
 Mar 01 06:26:56 romulus systemd[1]: Started Phosphor Hwmon Poller.
 ```
 ### 1.2 D-bus sensor inspection
-> Target of this exercise is to try verify D-Bus value reflects processed sensor data
+> The target of this exercise is to verify that the D-Bus value reflects the processed sensor data.
 - Located sensor service via busctl
 ```
 root@romulus:~# busctl list | grep Hwmon 
@@ -69,9 +69,9 @@ root@romulus:~# busctl tree xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f8323
 ```
 
 - Read voltage value
-  1. get-property method
-  ```
-  root@romulus:~# busctl get-property xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541.Hwmon1 /xyz/openbmc_project/sensors/voltage/vbat xyz.openbmc_project.Sensor.Value Value
+1. get-property method
+```
+root@romulus:~# busctl get-property xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541.Hwmon1 /xyz/openbmc_project/sensors/voltage/vbat xyz.openbmc_project.Sensor.Value Value
 d 1.93725
 
 ```
