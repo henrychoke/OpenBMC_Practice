@@ -115,3 +115,10 @@ GAIN_in1=2.25
 
 ```
 > D-Bus value = raw_value × GAIN
+
+## Key Findings
+
+- OpenBMC sensor values are not raw hardware readings
+- Data is transformed via configuration (GAIN)
+- hwmon → D-Bus mapping is dynamic and service-driven
+- systemd restart directly affects sensor pipeline
