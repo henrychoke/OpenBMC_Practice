@@ -8,7 +8,7 @@ Understand and debug the full sensor data flow in OpenBMC:
 
 ## Investigation Steps
 ### 1.1 Service Behavior(systemd)
-- Listed services using systemctl\
+- Listed services using systemctl
 ```
 root@romulus:~# systemctl list-units --type=service
 ```
