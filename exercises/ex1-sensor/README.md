@@ -96,6 +96,8 @@ root@romulus:~# ps ww | grep phosphor-hwmon
 
  1246 root      2988 S    grep phosphor-hwmon
 ```
+> The -o parameter (e.g., -o /iio-hwmon-battery) corresponds to the Device Tree path in the Linux Kernel
+
 - Locate the file that defines the voltage; the path after -o will be mapped to the /etc/default/obmc/hwmon/ folder
 ```
 root@romulus:~# find /etc/default/obmc/hwmon/ -name "*.conf"
@@ -112,5 +114,4 @@ LABEL_in1=vbat
 GAIN_in1=2.25
 
 ```
-
-> The -o parameter (e.g., -o /iio-hwmon-battery) corresponds to the Device Tree path in the Linux Kernel
+> D-Bus value = raw_value × GAIN
