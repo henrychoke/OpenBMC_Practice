@@ -30,3 +30,52 @@ root@romulus:~# systemctl status "xyz.openbmc_project.Hwmon*-iio*"2dh~# systemct
 ```
 root@romulus:~# systemctl restart 'xyz.openbmc_project.Hwmon@-iio\x2dhwmon\x2dbattery.service'
 ```
+
+-  Monitored logs to confirm service restart triggers sensor reinitialization using another terminal
+```
+root@romulus:~# journalctl -f -u 'xyz.openbmc_project.Hwmon@-iio\x2dhwmon\x2dbattery.service'
+Mar 01 03:51:32 romulus systemd[1]: Started Phosphor Hwmon Poller.
+Mar 01 06:26:30 romulus systemd[1]: Stopping Phosphor Hwmon Poller...
+Mar 01 06:26:30 romulus systemd[1]: xyz.openbmc_project.Hwmon@-iio\x2dhwmon\x2dbattery.service: Deactivated successfully.
+Mar 01 06:26:30 romulus systemd[1]: Stopped Phosphor Hwmon Poller.
+Mar 01 06:26:30 romulus systemd[1]: Started Phosphor Hwmon Poller.
+Mar 01 06:26:56 romulus systemd[1]: Stopping Phosphor Hwmon Poller...
+Mar 01 06:26:56 romulus systemd[1]: xyz.openbmc_project.Hwmon@-iio\x2dhwmon\x2dbattery.service: Deactivated successfully.
+Mar 01 06:26:56 romulus systemd[1]: Stopped Phosphor Hwmon Poller.
+Mar 01 06:26:56 romulus systemd[1]: Started Phosphor Hwmon Poller.
+```
+### 1.2 D-bus sensor inspection
+> Target of this exercise is to try verify D-Bus value reflects processed sensor data
+- Located sensor service via busctl
+```
+root@romulus:~# busctl list | grep Hwmon 
+:1.348                                                                                            679 phosphor-hwmon- root             :1.348        xyz.openbmc_project.Hwmon@-iio\x2dhwmon\x2dbattery.service                        -       -
+:1.42                                                                                             294 phosphor-hwmon- root             :1.42         xyz.openbmc_project.Hwmon@-ahb-apb-pwm\x2dtacho\x2dcontroller\x401e786000.service -       -
+xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541.Hwmon1 679 phosphor-hwmon- root             :1.348        xyz.openbmc_project.Hwmon@-iio\x2dhwmon\x2dbattery.service                        -       -
+xyz.openbmc_project.Hwmon-c802d5b0aa994ff2acc1a47875439b0307ccaf4671c4a383ba55073cebadade2.Hwmon1 294 phosphor-hwmon- root             :1.42         xyz.openbmc_project.Hwmon@-ahb-apb-pwm\x2dtacho\x2dcontroller\x401e786000.service -       -
+root@romulus:~# busctl tree xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541.Hwmon1
+```
+> The names of services on D-Bus will include the names we see in "systemctl + hardware path". Let's list all currently "alive" services using D-Bus, and then use grep to filter them
+
+- Identified object path
+```
+root@romulus:~# busctl tree xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541.Hwmon1
+`- /xyz
+  `- /xyz/openbmc_project
+    `- /xyz/openbmc_project/sensors
+      `- /xyz/openbmc_project/sensors/voltage
+        `- /xyz/openbmc_project/sensors/voltage/vbat
+```
+
+- Read voltage value
+  1. get-property method
+  ```
+  root@romulus:~# busctl get-property xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541.Hwmon1 /xyz/openbmc_project/sensors/voltage/vbat xyz.openbmc_project.Sensor.Value Value
+d 1.93725
+```
+2. Object Mapper
+```
+root@romulus:~# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetObject sas "/xyz/openbmc_project/sensors/voltage/vbat" 0
+
+a{sas} 1 "xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541.Hwmon1" 5 "org.freedesktop.DBus.Introspectable" "org.freedesktop.DBus.Peer" "org.freedesktop.DBus.Properties" "xyz.openbmc_project.Sensor.Value" "xyz.openbmc_project.State.Decorator.OperationalStatus"
+```
