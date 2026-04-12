@@ -11,10 +11,10 @@ This repo contains my hands-on exercises on OpenBMC development.
 
 ## Structure
 See each exercise for details:
-- [Exercise 1 - Sensor Debugging & Data Flow Analysis](exercises/ex1-sensor/README.md)
-- [Exercise 2 - Virtual Sensor](exercises/ex2-virtual/README.md)
-- [Exercise 3 - Crash Service Debug](exercises/ex3-crash/README.md)
-- [Exercise 4 - Entity Manager](exercises/ex4-entity/README.md)
+- [Exercise 1 - Sensor Debugging & Data Flow Analysis](exercises/ex1-sensor)
+- [Exercise 2 - Virtual Sensor](exercises/ex2-virtual)
+- [Exercise 3 - Crash Service Debug](exercises/ex3-crash)
+- [Exercise 4 - Entity Manager](exercises/ex4-entity)
 
 ## Development Environment
 ### 1. Virtual Machine and Host OS
