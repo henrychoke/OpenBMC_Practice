@@ -1,0 +1,13 @@
+[Unit]
+Description=Virtual Ambient Temperature Sensor Daemon
+#To ensure started after Dbus
+After=dbus.socket
+
+[Service]
+#Exe path
+ExecStart=/usr/bin/v-ambient-assoc
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

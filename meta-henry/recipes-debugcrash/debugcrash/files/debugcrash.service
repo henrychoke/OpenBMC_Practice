@@ -1,0 +1,13 @@
+[Unit]
+Description=Debug Crash Daemon
+#To ensure started after Dbus
+After=dbus.socket
+
+[Service]
+#Exe path
+ExecStart=/usr/bin/debugcrash
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
