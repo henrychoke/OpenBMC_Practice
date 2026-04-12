@@ -83,3 +83,34 @@ root@romulus:~# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_projec
 a{sas} 1 "xyz.openbmc_project.Hwmon-90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541.Hwmon1" 5 "org.freedesktop.DBus.Introspectable" "org.freedesktop.DBus.Peer" "org.freedesktop.DBus.Properties" "xyz.openbmc_project.Sensor.Value" "xyz.openbmc_project.State.Decorator.OperationalStatus"
 
 ```
+
+### 1.3 Kernel Source inspection
+> In this case, when monitoring the battery voltage of an object, the BMC cannot directly input the object's voltage into the BMC board. Therefore, there will be a voltage drop. However, the value seen on the web interface must match. This requires multiplying the gain value in the .conf file before letting D-Bus read it correctly.
+- Find the vbat PID
+```
+root@romulus:~# ps ww | grep phosphor-hwmon
+
+  294 root     10648 S    /usr/bin/phosphor-hwmon-readd -i c802d5b0aa994ff2acc1a47875439b0307ccaf4671c4a383ba55073cebadade2 -o /ahb/apb/pwm-tacho-controller@1e786000
+
+  679 root     10648 S    /usr/bin/phosphor-hwmon-readd -i 90dc5dd3857daeb224c11f832395c5c454995ef20ee9cda4c1747f544f1f8541 -o /iio-hwmon-battery
+
+ 1246 root      2988 S    grep phosphor-hwmon
+```
+- Locate the file that defines the voltage; the path after -o will be mapped to the /etc/default/obmc/hwmon/ folder
+```
+root@romulus:~# find /etc/default/obmc/hwmon/ -name "*.conf"
+/etc/default/obmc/hwmon/ahb/apb/bus@1e78a000/i2c@440/w83773g@4c.conf
+/etc/default/obmc/hwmon/ahb/apb/pwm-tacho-controller@1e786000.conf
+/etc/default/obmc/hwmon/devices/platform/gpio-fsi/fsi0/slave@00--00/00--00--00--06/sbefifo1-dev0/occ-hwmon.1.conf
+/etc/default/obmc/hwmon/devices/platform/gpio-fsi/fsi0/slave@00--00/00--00--00--0a/fsi1/slave@01--00/01--01--00--06/sbefifo2-dev0/occ-hwmon.2.conf
+/etc/default/obmc/hwmon/iio-hwmon-battery.conf
+
+root@romulus:~# cat /etc/default/obmc/hwmon/iio-hwmon-battery.conf
+
+LABEL_in1=vbat
+
+GAIN_in1=2.25<img width="557" height="88" alt="image" src="https://github.com/user-attachments/assets/68ab6f81-1d36-4ddd-a3a6-14e8c7fb78ac" />
+
+```
+
+> The -o parameter (e.g., -o /iio-hwmon-battery) corresponds to the Device Tree path in the Linux Kernel
