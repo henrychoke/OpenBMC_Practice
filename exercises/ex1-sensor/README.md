@@ -109,7 +109,7 @@ root@romulus:~# cat /etc/default/obmc/hwmon/iio-hwmon-battery.conf
 
 LABEL_in1=vbat
 
-GAIN_in1=2.25<img width="557" height="88" alt="image" src="https://github.com/user-attachments/assets/68ab6f81-1d36-4ddd-a3a6-14e8c7fb78ac" />
+GAIN_in1=2.25
 
 ```
 
