@@ -64,5 +64,5 @@ Implement a virtual device on OpenBMC and expose its data via D-Bus using sdbusp
   6. Now, the WebUI is also displaying the items correctly:
      <img width="1568" height="378" alt="webui" src="https://github.com/user-attachments/assets/29acf814-6915-4655-a640-76d3e8eba23c" />
 
-- Lastly, I added it to the systemd units and updated the Yocto recipe to include it in the image build, making it ready to use on startup. For further details, please refer to the [meta-henry](../../meta-henry) layer
+- Lastly, I added it to the systemd units and updated the Yocto recipe to include it in the image build, making it ready to use on startup. For further details, please refer to the [recipes-vambient](../../meta-henry/recipes-vambient)
   > In [v-ambient_git.bb](../../meta-henry/recipes-vambient/v-ambient/v-ambient_git.bb), due to the Yocto Whinlatter version (as specified in [layer.conf](../../meta-henry/conf/layer/conf)), source files can no longer be placed directly in `$WORKDIR` after compilation. Therefore, the subdir approach was implemented.
