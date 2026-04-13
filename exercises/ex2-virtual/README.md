@@ -12,7 +12,7 @@ Implement a virtual device on OpenBMC and expose its data via D-Bus using sdbusp
      ```
   2. Then, use CMake to compile the cpp file
      - [CMakeLists.txt](../../meta-henry/recipes-vambient/v-ambient/files/CMakeLists.txt)
-     - [v_ambient.cpp](../../meta-henry/recipes-vambient/v-ambient/files/v-ambient.cpp)
+     - [v-ambient.cpp](../../meta-henry/recipes-vambient/v-ambient/files/v-ambient.cpp)
      - Host VM
        ```
        mkdir build && cd build
@@ -55,7 +55,7 @@ Implement a virtual device on OpenBMC and expose its data via D-Bus using sdbusp
         }
         ```
   4. I hypothesize that the missing chassis association for this D-Bus object is the cause; therefore, an association definition is required.
-     - [v_ambient_assoc.cpp](../../meta-henry/recipes-vambient/v-ambient/files/v-ambient-assoc.cpp)
+     - [v-ambient-assoc.cpp](../../meta-henry/recipes-vambient/v-ambient/files/v-ambient-assoc.cpp)
   > My understanding is that the D-Bus object's interfaces and properties must adhere to Redfish specifications so that bmcweb can discover and expose them to the WebUI
   
   5. Repeat the process in step 3, then run introspection to see the following results:
