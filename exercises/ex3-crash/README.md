@@ -63,7 +63,7 @@ std::cout << *ptr << std::endl
    - Remove `tools-debug`
    - Avoid embedding debug symbols in target
    - Use split debug symbols:
-     IMAGE_GEN_DEBUGFS = "1"
+     `IMAGE_GEN_DEBUGFS = "1"`
     
 2. Enable core dump(QEMU):
    - Modify /etc/systemd/coredump.conf
