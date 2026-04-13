@@ -18,5 +18,5 @@ This exercise demonstrates how OpenBMC dynamically discovers hardware components
         "Name": "Henry_Experimental_Board",
         "Probe": "TRUE",
         "Type": "Board"
-    }
+     }
   ```
