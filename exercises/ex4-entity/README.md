@@ -42,7 +42,7 @@ This exercise demonstrates how OpenBMC dynamically discovers hardware components
   > 1. BMC must detect actual hardware presence
   > 2. Cannot rely on static configuration
   
-  1. Since QEMU lacks physical FRU, I attached a virtual EEPROM via QEMU:
+  1. Since QEMU lacks physical FRU, I attached a virtual EEPROM via QEMU ( [run_qemu.sh](../../build/romulus/run_qemu.sh) ):
      ```
      -device at24c-eeprom,bus=aspeed.i2c.bus.3,address=0x50,rom-size=256
      ```
