@@ -78,3 +78,11 @@ This exercise demonstrates how OpenBMC dynamically discovers hardware components
          `- /xyz/openbmc_project/FruDevice
            `- /xyz/openbmc_project/FruDevice/Henry_Virtual_Card
      ```
+## Key Findings
+- How OpenBMC discovers hardware dynamically (not statically)
+- Relationship between:
+   - EEPROM (FRU)
+   - FruDevice service
+   - Entity Manager
+   - D-Bus inventory
+- Realistic platform bring-up flow without physical hardware
