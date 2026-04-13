@@ -1,4 +1,4 @@
-# OpenBMC Practice (Henry)
+# OpenBMC Practice
 
 ## Overview
 This repo contains my hands-on exercises on OpenBMC development.
