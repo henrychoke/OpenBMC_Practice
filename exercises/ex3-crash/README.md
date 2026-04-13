@@ -96,10 +96,10 @@ std::cout << *ptr << std::endl
   ```
 
 - In GDB
-  '''
+  ```
   (gdb)  set sysroot /home/henry/openbmc_sdk/sysroots/arm1176jzs-openbmc-linux-gnueabi
   (gdb) bt
 
   #0  0x0047680c in main () at /usr/src/debug/debugcrash/git/debugcrash.cpp:11
-  '''
+  ```
   > Set up the Sysroot so GDB knows where to locate the ARM libraries
