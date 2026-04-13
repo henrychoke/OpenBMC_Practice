@@ -65,8 +65,8 @@ std::cout << *ptr << std::endl
    - Use split debug symbols:
      IMAGE_GEN_DEBUGFS = "1"
     
-2. Enable core dump:
-   - Modify /etc/systemd/coredump.conf in QEMU
+2. Enable core dump(QEMU):
+   - Modify /etc/systemd/coredump.conf
      ```
      Storage=external
      ProcessSizeMax=0
