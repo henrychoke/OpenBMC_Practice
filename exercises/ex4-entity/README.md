@@ -58,7 +58,7 @@ This exercise demonstrates how OpenBMC dynamically discovers hardware components
      > Register a device of type 24c02 at address 0x50 on i2c-3 and verified it
 
   3. Generate valid FRU data (pls refer to the [IPMI FRU doc](https://www.intel.com/content/dam/www/public/us/en/documents/specification-updates/ipmi-platform-mgt-fru-info-storage-def-v1-0-rev-1-3-spec-update.pdf)):
-       - Implemented a Python script [FRU_create.py](code/FRU_create.py) to construct a valid FRU binary, which included FRU Header + Board Info Area + Checksum calculation, and `scp` into the QEMU
+       - Implemented a Python script [FRU_create.py](code/FRU_create.py) to construct a valid [FRU binary](code/henry_fru.bin), which included FRU Header + Board Info Area + Checksum calculation, and `scp` into the QEMU
        - The key constraint must be satisfied by the following calculation:
          > (Sum of all bytes + checksum) mod 256 = 0. 
          > The last byte must be a checksum such that the sum of all data bytes plus the checksum equals zero   modulo 256. For example, if the total sum of the 8-byte Header and Board Info Area is 0x2CE, the checksum should be 0x32, because $0x2CE + 0x32 = 0x300$, which is 0 mod 256
