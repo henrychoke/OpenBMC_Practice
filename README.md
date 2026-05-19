@@ -19,12 +19,12 @@ See each exercise for details:
 - [Exercise 6 - I2C Daemon](exercises/ex6-max30102-ioctl)
 
 ## Development Environment
-### * Virtual Machine and Host OS
+###  Virtual Machine and Host OS
 * **OS:** Ubuntu 22.04.5 LTS (x86_64)
 * **Memory:** 16GB
 * **Disk Space:** 250GB
 
-### * Target Architecture
+###  Target Architecture
 1. QEMU
 * **Machine:** Romulus BMC
 * **Architecture:** ARM1176JZS
@@ -34,5 +34,5 @@ See each exercise for details:
 * **Machine:** `raspberrypi4-64`
 * **Architecture:** ARMv8-A (Cortex-A72, aarch64)
 * **Kernel Version:** 6.12.x (Linux-RaspberryPi)
-* **OpenBMC Image:** `obmc-phosphor-image
+* **OpenBMC Image:** obmc-phosphor-image
 
